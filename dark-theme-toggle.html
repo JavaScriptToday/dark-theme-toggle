@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dark Theme Toggle</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .checkbox {
+        opacity: 0;
+        position: absolute;
+      }
+
+      .checkbox-label {
+        background-color: #333;
+        width: 50px;
+        height: 26px;
+        border-radius: 50px;
+        position: relative;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .fa-moon {
+        color: #f6f1d5;
+      }
+
+      .fa-sun {
+        color: #f39c12;
+      }
+
+      .checkbox-label .ball {
+        background-color: #fff;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        border-radius: 50%;
+        transition: transform 0.2s linear;
+      }
+
+      .checkbox:checked + .checkbox-label .ball {
+        transform: translateX(24px);
+      }
+
+      .dark-theme {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="dark-mode-toggle"
+      style="margin-top: 50px; text-align: center !important"
+    >
+      <input type="checkbox" class="checkbox" id="checkbox" />
+      <label for="checkbox" class="checkbox-label">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+        <span class="ball"></span>
+      </label>
+    </div>
+
+    <script>
+      const userPrefersDark = localStorage.getItem("theme") === "dark";
+
+      function setThemePreference(prefersDark) {
+        if (prefersDark) {
+          document.body.classList.add("dark-theme");
+        } else {
+          document.body.classList.remove("dark-theme");
+        }
+      }
+
+      setThemePreference(userPrefersDark);
+
+      const checkbox = document.getElementById("checkbox");
+      checkbox.checked = userPrefersDark;
+
+      checkbox.addEventListener("change", (event) => {
+        const isDarkMode = event.target.checked;
+        setThemePreference(isDarkMode);
+        localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+      });
+    </script>
+  </body>
+</html>
